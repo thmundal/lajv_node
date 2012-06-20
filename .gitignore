@@ -4,3 +4,4 @@
 .emacs.desktop
 .emacs.desktop.lock
 scratch.js
+npm-debug.log

@@ -5,8 +5,7 @@
     "author" : "Thomas Mundal",
     "dependencies" : {
         "socket.io" : "*",
-        "pg" : "*",
-        "threads_a_gogo" : "*"
+        "pg" : "*"
     },
     "devDependencies": {
         "swank-js": ">=0.0.1"

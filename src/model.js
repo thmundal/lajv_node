@@ -22,9 +22,7 @@ function runInBackground(func) {
 }
 
 var model = function(properties) {
-  this.db_connection = new pg.Client(constring);
   this.db_connection.connect();
-  this.destroyed = false;
 
   if(typeof properies == "object") {
     for(var i in properties) {
@@ -34,6 +32,9 @@ var model = function(properties) {
 
   this.db_schema = null;
 };
+
+model.prototype.db_connection = new pg.Client(constring);
+model.prototype.destroyed = false;
 
 model.prototype.destroy = function() {
   this.db_connection.end();
@@ -76,7 +77,6 @@ model.prototype.replicate_to_database = function(fields_to_replicate) {
   with(args = {model:this, 
                fields: fields_to_replicate}) {
     runInBackground(function() {
-                      console.log(fields);
                       for(var i in fields) {
                         console.log(i + " => " + fields[i]);
                       }

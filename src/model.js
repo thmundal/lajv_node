@@ -5,6 +5,9 @@ var spawn = require("child_process").fork;
 var constring = "postgres://lajv:1234@localhost/lajv_node";
 pg.defaults.poolSize = 10;
 
+var db = new pg.Client(constring);
+db.connect();
+
 function dbg_print(obj) {
   swank.output(JSON.stringify(obj));
 }
@@ -22,8 +25,6 @@ function runInBackground(func) {
 }
 
 var model = function(properties) {
-  this.db_connection.connect();
-
   if(typeof properies == "object") {
     for(var i in properties) {
       this[i] = properties[i];
@@ -33,11 +34,9 @@ var model = function(properties) {
   this.db_schema = null;
 };
 
-model.prototype.db_connection = new pg.Client(constring);
 model.prototype.destroyed = false;
 
 model.prototype.destroy = function() {
-  this.db_connection.end();
   this.destroyed = true;
   delete this;
 };
@@ -45,10 +44,10 @@ model.prototype.destroy = function() {
 model.prototype.load_database_schema = function() {
   if(typeof this.table_name != "undefined") {
     // Get schema-information from database here
-    this.db_connection.query("SELECT * FROM users;", 
-                             function(err, result) {
-                               dbg_print(result);
-                             });
+    db.query("SELECT * FROM users;", 
+             function(err, result) {
+               dbg_print(result);
+             });
   }
 };
 

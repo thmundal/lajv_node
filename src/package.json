@@ -1,0 +1,17 @@
+{
+    "name":"lajv-node",
+    "version" : "0.0.1",
+    "description" : "",
+    "author" : "Thomas Mundal",
+    "dependencies" : {
+        "socket.io" : "*",
+        "pg" : "*",
+        "threads_a_gogo" : "*"
+    },
+    "devDependencies": {
+        "swank-js": ">=0.0.1"
+    },
+    "scripts": {
+        "swank": "node node_modules/swank-js"
+    }
+}

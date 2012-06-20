@@ -1,0 +1,11 @@
+var pg = require('pg'); 
+
+var conString = "tcp://lajv-db-user:zX5bA709@localhost/lajv_node";
+
+//error handling omitted
+pg.connect(conString, function(err, client) {
+             client.query("SELECT NOW() as when", function(err, result) {
+                            _swank.output("Row count: %d",result.rows.length);  // 1
+                            _swank.output("Current year: %d", result.rows[0].when.getYear());
+                          });
+           });

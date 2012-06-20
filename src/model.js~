@@ -1,0 +1,33 @@
+var pg = require("pg");
+var swank = process.swank;
+var spawn = require("child_process").fork;
+
+function runInBackground(func) {
+  var thread = spawn("./thread.js");
+
+  thread.send({cb: "(" + func.toString() + ")()", params:args});
+
+  thread.on("message", function(m) {
+              with(m.params) {
+                eval(m.cb);
+              }
+             });
+}
+
+var model = function() {
+  this.name = "Thomas";
+};
+
+model.prototype.replicate_to_database = function() {
+  with(args = {model:this}) {
+    runInBackground(function() {
+                      for(var i in model) {
+                        console.log(i + " => " + model[i]);
+                      }
+
+                      respond("heisann");
+                    });
+  }
+};
+
+exports.model = model.prototype;

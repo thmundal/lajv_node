@@ -6,4 +6,6 @@ process.on("message", function(m) {
              with(m.params != null ? m.params : {}) {
                eval(m.cb);
              }
+             
+             process.exit();
            });

@@ -1,3 +1,0 @@
-[submodule "src/node_modules/threads_a_gogo"]
-	path = src/node_modules/threads_a_gogo
-	url = git://github.com/xk/node-threads-a-gogo.git
